@@ -102,6 +102,9 @@ static CFIndex WriteDataToStream(NSData* data, CFWriteStreamRef stream)
 
 - (void)applyRequestHeaders:(NSDictionary*)headers toRequest:(NSMutableURLRequest*)req
 {
+    // fix: No known instance method for selector 'userAgent'
+    [req setValue:@"XMLHttpRequest" forHTTPHeaderField:@"X-Requested-With"];
+
     for (NSString* headerName in headers) {
         id value = [headers objectForKey:headerName];
         if (!value || (value == [NSNull null])) {
